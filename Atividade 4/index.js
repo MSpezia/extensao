@@ -11,6 +11,6 @@ const express = require("express");
     })
 
 const PORT = 8080;
-app.listen(PORT), function (){
-    console.log("app rodando na porta " + PORT)
-}
+app.listen(PORT, function (){
+    console.log("app rodando na porta " + PORT);
+});
