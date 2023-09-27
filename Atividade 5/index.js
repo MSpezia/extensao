@@ -1,33 +1,31 @@
-const express = require('require');
-const estoque = require('./estoque/estoque');
+const express = require('express');
+const mustacheExpress = require('mustache-express');
 const app = express();
 
-app.get("/api/adicionar/:id/:nome/:qtd", function(req,res){
-    let id = req.params.id;
-    let nome = req.params.nome;
-    let qtd = req.params.qtd;
+app.engine('html', mustacheExpress());
+app.set('view engine', 'html');
+app.set('views', __dirname + '/views');
 
-    let p = estoque.criar_produto(id,nome,qtd);
-    estoque.adcionar_produto(p);
-    res.json(p);
-});
+app.use(express.urlencoded([extended, true]));
 
-app.get("/api/listar", function(req,res){
-    res.json(estoque.listar_produtos());
-});
+app.get('/', function (req,res){
+    let usuario = {
+        nome: "Jota",
+        telefone: 123123 
+    }
+    res.render('index.html', {usuario});
+})
 
-app.get("/api/editar/:id/:qtdAtual",function(req,res){
-    let id = req.params.id;
-    let qtdAtual = req.param.qtdAtual;
-    res.json(estoque.editar_produto(id,qtdAtual));
-});
+app.get('/dados', function(req,res){
+    let usuario = {
+        nome:req.body.nome,
+        telefone:req.body.telefone
+    };
+    res.render('dados.html', {usuario});
+})
 
-app.get("/api/remover/:id", function(req,res){
-    let id = req.params.id;
-    res.json(estoque.remover_produto(id));
-});
 
 const PORT = 8080;
-app.listen(PORT,function(){
-    console.log("app rodando na porta " +PORT);
-});
+app.listen(PORT, function(){
+    console.log('app rodando na porta ' + PORT);
+})
