@@ -9,6 +9,7 @@ app.set('views', __dirname + '/src/views');
 app.use(express.urlencoded({extended: true}));
 
 app.use("/", require('./src/routes/calculadoraRoutes.js'));
+app.use("/calcular", require('./src/routes/calculadoraRoutes.js'));
 
 const PORT = 8080;
 app.listen(PORT, function () {

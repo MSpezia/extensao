@@ -6,6 +6,7 @@ function indexCalculadora(req, res) {
 
 function calcular(req, res) {
     res.send(calculadora.somar());
+    res.render('calcular.html');
 }
 
 module.exports = {
